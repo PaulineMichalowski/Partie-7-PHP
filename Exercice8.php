@@ -1,38 +1,42 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Exercice 7</title>
-</head>
-<body>
-  <?php
-  
-    if (isset($_POST['gender']) AND isset($_POST['firstName']) AND isset($_POST['lastName']) AND isset($_FILES['file']))
-  {
-    $infosfichier = pathinfo($_FILES['file']['name']);
-    $extension_upload = $infosfichier['extension'];
-    $extensions_autorisees = array('pdf');
-    if (in_array($extension_upload, $extensions_autorisees))
-     {
-       echo htmlspecialchars($_POST['gender'] . ' ' . $_POST['firstName']. ' ' .$_POST['lastName']. '. Le fichier envoyé est ' .$_FILES['file']['name']);
-     }
-     else{
-       echo 'Ceci n\'est pas un pdf';
-     }
-}else{
-    ?>
-    <form method="post" action="Exercice8.php" enctype="multipart/form-data">
-      <select name="gender">
-        <option value="Monsieur">Monsieur</option>
-        <option value="Madame">Madame</option>
-      </select>
-      <label for="firstName">Nom :</label><input type="text" name="firstName">
-      <label for="lastName">Prénom :</label><input type="text" name="lastName">
-      <label for="file">Votre fichier :</label><input type="file" name="file">
-      <input type="submit" value="valider">
-    </form>
-    <?php
-  }
-  ?>
-</body>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8" />
+        <title>Exercice 8</title>
+    </head>
+    <body>
+        <?php
+        // Je vérifie que les variables ont une valeurs
+        $regexName = '/^[A-Z]{1}[a-z]+$/';
+        if (isset($_POST['gender']) && isset($_POST['firstName']) && isset($_POST['lastName']) && preg_match($regexName, $_POST['firstName']) && preg_match($regexName, $_POST['lastName'])) {
+            // J'affiche le contenu des variables
+            echo strip_tags($_POST['gender']) . ' ' . strip_tags($_POST['firstName']) . ' ' . strip_tags($_POST['lastName']) . ' !';
+            $infosfichier = pathinfo($_FILES['file']['name']);
+            echo $_FILES['file']['name'];
+            if ($infosfichier['extension'] == 'pdf') {
+                echo 'C\'est bon.';
+            }
+        } else {
+            ?>
+            <!-- je créé mon formulaire avec la methode post et une action qui permet d'amener sur la page actuelle -->
+            <form id="form" action="index.php" method="post" enctype="multipart/form-data">
+                <label for="gender">Votre civilité ? </label>
+                <select name="gender">
+                    <option value="Monsieur">Mr</option>
+                    <option value="Madame">Mme</otpion>
+                    <option value="Autre">Autre</option>
+                </select>
+                <label for="lastName"> Nom : </label>
+                <input type="text" name="lastName" />
+                <label for="firstName"> Prénom : </label>
+                <input type="text" name="firstName" />
+                <!-- Je créer un bouton permetant la sélection du fichier à envoyer -->
+                <label for="file">Votre fichier</label>
+                <input type="file" name="file" />
+                <input type="submit" value="Envoyer le fichier" />
+            </form>
+            <?php
+        }
+        ?>
+    </body>
 </html>

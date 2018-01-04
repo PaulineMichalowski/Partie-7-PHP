@@ -1,13 +1,15 @@
-<!DOCTYPE>
+<!DOCTYPE html>
 <html>
     <head>
-        <title>Exercice 4</title>
+        <meta charset="utf-8">
+        <title>Partie7 ex4 form</title>
     </head>
     <body>
-        <form method="post" action="userEx4.php">
-            <label>Prénom : </label><input type="text" name="prenom" placeholder="Prénom"/>
-            <label>Nom : </label><input type="text" name="nom" placeholder="Nom"/>
-            <input type="submit" name="valider" />
+        <!--Création du formulaire avec la methode post-->
+        <form method="POST" action="userEx2.php">
+            <label for="lastnameForm">Nom : <input type="text" name="lastnameForm" placeholder="Ex : Dupres"/></label>
+            <label for="firstnameForm">Prénom : <input type="text" name="firstnameForm" placeholder="Ex : Aurelien"/></label>
+            <input type="submit" value="Valider"/>
         </form>
     </body>
 </html>
